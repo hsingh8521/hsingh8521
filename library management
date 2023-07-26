@@ -1,0 +1,156 @@
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+class stationery {
+public:
+void CONTROL_PANEL();
+void ADD_BOOK();
+void DISPLAY_BOOKS();
+void CHECK_BOOKS();
+void DELETE_BOOKS();
+};
+
+void stationery::CONTROL_PANEL() {
+cout << "\n\n\t\t\t\tCONTROL PANEL";
+cout << "\n\n1. ADD BOOKS";
+cout << "\n2. DISPLAY BOOKS";
+cout << "\n3. CHECK FOR BOOK";
+cout << "\n4. DELETE BOOKS";
+cout << "\n5. EXIT";
+}
+
+void stationery::ADD_BOOK() {
+fstream file;
+int totalbooks;
+string bookname, author, book_id;
+cout << "\n\n\t\t\t ADD BOOKS";
+cout << "\n\nEnter the name of the book: ";
+cin >> bookname;
+cout << "\nEnter the total no of books: ";
+cin >> totalbooks;
+cout << "\nEnter the name of the author: ";
+cin >> author;
+cout << "\nEnter the book id: ";
+cin >> book_id;
+file.open("D://book.txt", ios::out | ios::app);
+file << " " << bookname << " " << totalbooks << " " << author << " " << book_id << "\n";
+file.close();
+}
+
+void stationery::DISPLAY_BOOKS() {
+int totalbooks;
+fstream file;
+string book_id, bookname, author;
+cout << "\n\n\t\t\t\t\t ALL BOOKS";
+file.open("D://book.txt", ios::in);
+if (!file)
+cout << " \n\nFile opening failed" << endl;
+else {
+cout << "\n\n\nBook name \t total books \t author \t book id\n\n";
+while (file >> bookname >> totalbooks >> author >> book_id) {
+cout << " " << bookname;
+cout << "\t\t" << totalbooks;
+cout << "\t\t" << author;
+cout << "\t\t" << book_id << "\n\n";
+        }
+file.close();
+    }
+}
+
+void stationery::CHECK_BOOKS() {
+fstream file;
+int totalbooks, count = 0;
+string author, book_id, b_idd, bookname;
+cout << "\n\n\t\t\t\tCheck particular book";
+file.open("D://book.txt", ios::in);
+if (!file) {
+cout << "\n\nFile opening failed";
+} else {
+cout << "\n\nBook id: ";
+cin >> b_idd;
+while (file >> bookname >> totalbooks >> author >> book_id) {
+if (b_idd == book_id) {
+cout << "\n\nBook details:";
+cout << "\nBook name: " << bookname;
+cout << "\nTotal number of books: " << totalbooks;
+cout << "\nAuthor name: " << author;
+cout << "\nBook id: " << book_id;
+cout << "\n\nBook found\n";
+count++;
+break;
+            }
+        }
+file.close();
+if (count == 0)
+cout << "\n\nID not found";
+    }
+}
+void stationery::DELETE_BOOKS() {
+fstream file, file1;
+int totalbooks, count = 0;
+string author, book_id, bookname, b_idd;
+cout << "\n\n\t\t\t\tDelete a book";
+file1.open("D://book1.txt", ios::app | ios::out);
+file.open("D://book.txt", ios::in);
+if (!file) {
+cout << "\n\nFile opening failed";
+} else {
+cout << "\n\nBook id: ";
+cin >> b_idd;
+while (file >> bookname >> totalbooks >> author >> book_id) {
+if (book_id == b_idd) {
+cout << "\n\n\t\t\t\tDelete a book";
+cout << "\n\nBook is deleted successfully...\n\n";
+count++;
+} else {
+file1 << bookname << " " << totalbooks << " " << author << " " << book_id << endl;
+            }
+        }
+if (count == 0)
+cout << "\n\nBook id not found...";
+    }
+file1.close();
+file.close();
+remove("D://book.txt");
+rename("D://book1.txt", "D://book.txt");
+}
+
+void bookrecord() {
+int choice;
+char x;
+stationery s;
+while (1) {
+s.CONTROL_PANEL();
+cout << "\n\nenter your choice: ";
+cin >> choice;
+switch (choice) {
+case 1:
+do {
+s.ADD_BOOK();
+cout << "\n\nWant to add another book? (y/n): ";
+cin >> x;
+} while (x == 'y' || x == 'Y');
+break;
+case 2:
+s.DISPLAY_BOOKS();
+break;
+case 3:
+s.CHECK_BOOKS();
+break;
+case 4:
+s.DELETE_BOOKS();
+break;
+case 5:
+exit(0);
+break;
+default:
+cout << "\n\nINVALID CHOICE\n";
+        }
+    }
+}
+
+int main() {
+    bookrecord();
+    return 0;
+}
