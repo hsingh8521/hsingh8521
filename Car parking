@@ -1,0 +1,50 @@
+#include<iostream>
+using namespace std;
+
+int main(){
+	cout<<"\t\t C A R  P A R K I N G"<<endl;
+	int enter;
+	int car=0,bike=0,ricksaw=0;
+	while (1){
+		cout<<"Press 1 to enter car"<<endl;
+		cout<<"Press 2 to enter bike"<<endl;
+		cout<<"Press 3 to enter ricksaw"<<endl;
+		cout<<"Press 4 to show the record"<<endl;
+		cout<<"Press 5 to delete the record"<<endl;
+		cout<<"Press 6 to exit"<<endl;
+		cout<<"Enter your choice"<<endl;
+		cin>>enter;
+		if (enter==1){
+			car++;
+			system("CLS");
+			cout<<"Car is added"<<endl;
+		}
+		else if (enter==2){
+			bike++;
+			system("CLS");
+			cout<<"bike is added"<<endl;
+		}
+else if (enter==3){
+ricksaw++;
+system("CLS");
+cout<<"ricksaw is added"<<endl;
+		}
+else if (enter == 4){
+cout<<"\n\n\n Total car = "<<car<<" "<<endl;
+cout<<"\n\n Total bike = "<<bike<<endl;
+cout<<" \n\nTotal ricksaw = "<<ricksaw<<endl;	
+		}
+else if (enter == 5){
+car=0;
+bike=0;
+ricksaw=0;
+cout<<"Deleted succesfully"<<endl;
+		}
+else if (enter == 6){
+exit(0);
+		}
+else {
+cout<<"Wrong input"<<endl;
+		}
+	}
+}
